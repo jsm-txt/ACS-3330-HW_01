@@ -1,23 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import data, {categoriesUnique, categoriesWithCounts, allCategories} from './data'
+import { useState } from 'react'
+
 
 function App() {
+  const [category, setCategory] = useState('All')
+  data.filter((item) => {
+    return item.category === category || category === 'All'
+  })
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {categoriesUnique.map( category => <button> {category} {categoriesWithCounts[category]} </button>)}
+      <div className="product">
+        {data.map( product =>(
+          <div> <h2>{product.name}</h2>
+          <h3>{product.price}</h3>
+          <h4>{product.category}</h4>
+          <p>{product.description}</p>
+          <hr></hr>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
